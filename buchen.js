@@ -7,6 +7,8 @@
   const API = 'https://api.cal.com/v2';
   const NUTZER = 'webrausch', TERMIN = 'erstgesprach', ZONE = 'Europe/Berlin';
   const TAGE = 21;
+  // Nicht alle freien Slots zeigen, sonst wirkt der Kalender leer: wenige Tage, wenige Zeiten pro Tag
+  const MAX_TAGE = 5, MAX_ZEITEN = 4;
 
   const box = document.getElementById('buchen');
   if (!box) return;
@@ -25,7 +27,10 @@
 #buchen .tag[aria-pressed="true"]{background:var(--orange,#ff7400);border-color:var(--orange,#ff7400);color:#000}
 #buchen .tag[aria-pressed="true"] span{color:#000}
 #buchen .gruppe{font-size:13px;color:var(--muted,#a59d93);margin:4px 0 8px}
-#buchen .zeiten{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+#buchen .zeiten{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:420px){#buchen .zeiten{grid-template-columns:repeat(2,1fr)}}
+#buchen .tage{justify-content:flex-start}
+#buchen .tag{flex:1 0 72px}
 #buchen .zeit{background:var(--bg,#0b0b0b);border:1px solid var(--line,#2a2622);border-radius:12px;padding:12px 6px;font-weight:700;font-variant-numeric:tabular-nums}
 #buchen .zeit:hover,#buchen .tag:hover{border-color:var(--orange,#ff7400)}
 #buchen .zeit[aria-pressed="true"]{background:var(--orange,#ff7400);border-color:var(--orange,#ff7400);color:#000}
@@ -72,13 +77,26 @@
       { headers: { 'cal-api-version': '2024-09-04' } });
     const d = (await r.json()).data || {};
     tage = {};
-    // Zeiten kommen genau so, wie sie in Cal.com freigegeben sind
+    // Aus den in Cal.com freigegebenen Zeiten eine kleine Auswahl je Tag
     for (const [tag, slots] of Object.entries(d)) {
-      const frei = slots.map(s => s.start);
+      if (Object.keys(tage).length >= MAX_TAGE) break;
+      const frei = auswahl(tag, slots.map(s => s.start));
       if (frei.length) tage[tag] = frei;
     }
     tagWahl = Object.keys(tage)[0] || null;
     zeichnen();
+  }
+
+  // Nur volle und halbe Stunden, gleichmäßig über den Tag verteilt; je Datum etwas anders, aber bei jedem Aufruf gleich
+  function auswahl(tag, slots) {
+    const glatt = slots.filter(z => /:(00|30)$/.test(uhr(z)));
+    if (glatt.length <= 2) return glatt;
+    const seed = [...tag].reduce((a, c) => a * 31 + c.charCodeAt(0), 7);
+    const n = Math.min(glatt.length, MAX_ZEITEN - (seed % 2));   // mal 3, mal 4 Zeiten
+    const schritt = glatt.length / n, versatz = (seed % 97) / 97;
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(glatt[Math.min(glatt.length - 1, Math.floor((i + versatz) * schritt))]);
+    return [...new Set(out)];
   }
 
   function zeichnen() {
@@ -88,17 +106,15 @@
       return;
     }
     const zeiten = tage[tagWahl] || [];
-    const vormittags = zeiten.filter(z => uhr(z) < '12:00'), nachmittags = zeiten.filter(z => uhr(z) >= '12:00');
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
       onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
-    const gruppe = (titel, liste) => liste.length ? el('div', {}, el('div', { class: 'gruppe' }, titel), el('div', { class: 'zeiten' }, ...liste.map(knopf))) : null;
     // Leere Gruppen weglassen (replaceChildren würde sonst „null“ als Text einfügen)
     box.replaceChildren(...[...kopf,
       el('div', { class: 'tage', role: 'group', 'aria-label': 'Tag wählen' }, ...keys.map(t => el('button', {
         type: 'button', class: 'tag', 'aria-pressed': t === tagWahl ? 'true' : 'false',
         onclick: () => { tagWahl = t; zeitWahl = null; zeichnen(); } }, el('span', {}, wochentag(t)), el('b', {}, kurzDatum(t))))),
-      gruppe('Vormittags', vormittags), gruppe('Nachmittags', nachmittags),
-      zeitWahl ? formular() : el('p', { class: 'info' }, 'Wählen Sie eine Uhrzeit.')].filter(Boolean));
+      el('div', { class: 'zeiten' }, ...zeiten.map(knopf)),
+      zeitWahl ? formular() : el('p', { class: 'info' }, 'Keine passende Zeit dabei? Rufen Sie kurz an: ', el('a', { href: 'tel:+491601572410', style: 'color:inherit' }, '0160 1572410'), '.')].filter(Boolean));
   }
 
   function formular() {
