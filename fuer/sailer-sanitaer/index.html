@@ -13,6 +13,7 @@
 @font-face{font-family:"Instrument Sans";src:url("/fonts/instrument-sans.woff2") format("woff2");font-weight:400 700;font-display:swap}
 :root{--bg:#0b0b0b;--bg2:#141210;--ink:#f4efe8;--muted:#a59d93;--line:#2a2622;--orange:#ff7400;color-scheme:dark}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Instrument Sans",-apple-system,system-ui,sans-serif;
   padding:calc(20px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}
 main{max-width:760px;margin:0 auto;display:grid;gap:22px}
@@ -47,11 +48,13 @@ footer a{color:inherit}
   <div class="video"><video src="video.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video></div>
   <div class="who"><img src="/img/joschua-600.jpg" alt="Joschua Rauscher" width="56" height="56"><div><b>Joschua Rauscher</b><span>Webrausch · Reutlingen</span></div></div>
   <div class="ctas">
-    <a class="btn main" href="https://cal.com/webrausch/erstgesprach?notes=Betrieb%3A%20Sailer-Sanit%C3%A4r%20%28%C3%BCber%20das%20Video%20auf%20web-rausch.com/fuer/sailer-sanitaer%29">15 Minuten buchen</a>
+    <a class="btn main" href="#buchen">15 Minuten buchen</a>
     <a class="btn alt" href="tel:+491601572410">Anrufen: 0160 1572410</a>
   </div>
+  <div id="buchen" data-betrieb="Sailer-Sanitär" data-quelle="web-rausch.com/fuer/sailer-sanitaer"></div>
   <p class="note">Kostenlos und unverbindlich, per Google Meet oder Telefon. Lieber schreiben? <a href="mailto:joschua@web-rausch.com?subject=Termin%20%E2%80%93%20Sailer-Sanit%C3%A4r">joschua@web-rausch.com</a></p>
   <footer>Webrausch · Joschua Rauscher · Albstraße 24 · 72764 Reutlingen · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></footer>
 </main>
+<script src="/buchen.js" defer></script>
 </body>
 </html>
