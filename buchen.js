@@ -92,12 +92,13 @@
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
       onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
     const gruppe = (titel, liste) => liste.length ? el('div', {}, el('div', { class: 'gruppe' }, titel), el('div', { class: 'zeiten' }, ...liste.map(knopf))) : null;
-    box.replaceChildren(...kopf,
+    // Leere Gruppen weglassen (replaceChildren würde sonst „null“ als Text einfügen)
+    box.replaceChildren(...[...kopf,
       el('div', { class: 'tage', role: 'group', 'aria-label': 'Tag wählen' }, ...keys.map(t => el('button', {
         type: 'button', class: 'tag', 'aria-pressed': t === tagWahl ? 'true' : 'false',
         onclick: () => { tagWahl = t; zeitWahl = null; zeichnen(); } }, el('span', {}, wochentag(t)), el('b', {}, kurzDatum(t))))),
       gruppe('Vormittags', vormittags), gruppe('Nachmittags', nachmittags),
-      zeitWahl ? formular() : el('p', { class: 'info' }, 'Wählen Sie eine Uhrzeit.'));
+      zeitWahl ? formular() : el('p', { class: 'info' }, 'Wählen Sie eine Uhrzeit.')].filter(Boolean));
   }
 
   function formular() {
