@@ -6,8 +6,6 @@
 (() => {
   const API = 'https://api.cal.com/v2';
   const NUTZER = 'webrausch', TERMIN = 'erstgesprach', ZONE = 'Europe/Berlin';
-  // Nur diese Zeitfenster anbieten (Mo–Fr), auch wenn Cal.com mehr freigibt
-  const FENSTER = [['07:00', '09:45'], ['17:00', '18:45']];
   const TAGE = 21;
 
   const box = document.getElementById('buchen');
@@ -61,8 +59,6 @@
   const langDatum = (iso) => new Date(iso).toLocaleDateString('de-DE', { timeZone: ZONE, weekday: 'long', day: 'numeric', month: 'long' });
   const wochentag = (tag) => new Date(tag + 'T12:00:00Z').toLocaleDateString('de-DE', { timeZone: 'UTC', weekday: 'short' }).replace('.', '');
   const kurzDatum = (tag) => new Date(tag + 'T12:00:00Z').toLocaleDateString('de-DE', { timeZone: 'UTC', day: 'numeric', month: 'numeric' });
-  const imFenster = (iso) => { const u = uhr(iso); return FENSTER.some(([a, b]) => u >= a && u <= b); };
-  const werktag = (tag) => { const d = new Date(tag + 'T12:00:00Z').getUTCDay(); return d > 0 && d < 6; };
 
   let tage = {}, tagWahl = null, zeitWahl = null;
   const kopf = [el('h2', {}, '15 Minuten direkt hier buchen'),
@@ -76,9 +72,9 @@
       { headers: { 'cal-api-version': '2024-09-04' } });
     const d = (await r.json()).data || {};
     tage = {};
+    // Zeiten kommen genau so, wie sie in Cal.com freigegeben sind
     for (const [tag, slots] of Object.entries(d)) {
-      if (!werktag(tag)) continue;
-      const frei = slots.map(s => s.start).filter(imFenster);
+      const frei = slots.map(s => s.start);
       if (frei.length) tage[tag] = frei;
     }
     tagWahl = Object.keys(tage)[0] || null;
@@ -92,7 +88,7 @@
       return;
     }
     const zeiten = tage[tagWahl] || [];
-    const morgens = zeiten.filter(z => uhr(z) < '12:00'), abends = zeiten.filter(z => uhr(z) >= '12:00');
+    const vormittags = zeiten.filter(z => uhr(z) < '12:00'), nachmittags = zeiten.filter(z => uhr(z) >= '12:00');
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
       onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
     const gruppe = (titel, liste) => liste.length ? el('div', {}, el('div', { class: 'gruppe' }, titel), el('div', { class: 'zeiten' }, ...liste.map(knopf))) : null;
@@ -100,7 +96,7 @@
       el('div', { class: 'tage', role: 'group', 'aria-label': 'Tag wählen' }, ...keys.map(t => el('button', {
         type: 'button', class: 'tag', 'aria-pressed': t === tagWahl ? 'true' : 'false',
         onclick: () => { tagWahl = t; zeitWahl = null; zeichnen(); } }, el('span', {}, wochentag(t)), el('b', {}, kurzDatum(t))))),
-      gruppe('Morgens', morgens), gruppe('Abends', abends),
+      gruppe('Vormittags', vormittags), gruppe('Nachmittags', nachmittags),
       zeitWahl ? formular() : el('p', { class: 'info' }, 'Wählen Sie eine Uhrzeit.'));
   }
 
