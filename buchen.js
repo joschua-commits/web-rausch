@@ -8,7 +8,7 @@
   const NUTZER = 'webrausch', TERMIN = 'erstgesprach', ZONE = 'Europe/Berlin';
   const TAGE = 21;
   // Nicht alle freien Slots zeigen, sonst wirkt der Kalender leer: wenige Tage, wenige Zeiten pro Tag
-  const MAX_TAGE = 5, MAX_ZEITEN = 4;
+  const MAX_TAGE = 8, MAX_ZEITEN = 4;
 
   const box = document.getElementById('buchen');
   if (!box) return;
@@ -28,9 +28,12 @@
 #buchen .tag[aria-pressed="true"] span{color:#000}
 #buchen .gruppe{font-size:13px;color:var(--muted,#a59d93);margin:4px 0 8px}
 #buchen .zeiten{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#buchen .mehr{appearance:none;-webkit-appearance:none;background:var(--bg,#0b0b0b) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a59d93' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 16px center;border:1px solid var(--line,#2a2622);border-radius:12px;padding:12px 40px 12px 14px;color:var(--ink,#f4efe8);font:inherit;font-size:15px;cursor:pointer;width:100%}
+#buchen .mehr:hover{border-color:var(--orange,#ff7400)}
+#buchen .mehr:focus-visible{outline:2px solid var(--orange,#ff7400);outline-offset:2px}
 @media (max-width:420px){#buchen .zeiten{grid-template-columns:repeat(2,1fr)}}
 #buchen .tage{justify-content:flex-start}
-#buchen .tag{flex:1 0 72px}
+#buchen .tag{flex:0 0 auto}
 #buchen .zeit{background:var(--bg,#0b0b0b);border:1px solid var(--line,#2a2622);border-radius:12px;padding:12px 6px;font-weight:700;font-variant-numeric:tabular-nums}
 #buchen .zeit:hover,#buchen .tag:hover{border-color:var(--orange,#ff7400)}
 #buchen .zeit[aria-pressed="true"]{background:var(--orange,#ff7400);border-color:var(--orange,#ff7400);color:#000}
@@ -80,16 +83,15 @@
     // Aus den in Cal.com freigegebenen Zeiten eine kleine Auswahl je Tag
     for (const [tag, slots] of Object.entries(d)) {
       if (Object.keys(tage).length >= MAX_TAGE) break;
-      const frei = auswahl(tag, slots.map(s => s.start));
-      if (frei.length) tage[tag] = frei;
+      const alle = slots.map(s => s.start).filter(z => /:(00|30)$/.test(uhr(z)));
+      if (alle.length) tage[tag] = { vorschlag: auswahl(tag, alle), alle };
     }
     tagWahl = Object.keys(tage)[0] || null;
     zeichnen();
   }
 
   // Nur volle und halbe Stunden, gleichmäßig über den Tag verteilt; je Datum etwas anders, aber bei jedem Aufruf gleich
-  function auswahl(tag, slots) {
-    const glatt = slots.filter(z => /:(00|30)$/.test(uhr(z)));
+  function auswahl(tag, glatt) {
     if (glatt.length <= 2) return glatt;
     const seed = [...tag].reduce((a, c) => a * 31 + c.charCodeAt(0), 7);
     const n = Math.min(glatt.length, MAX_ZEITEN - (seed % 2));   // mal 3, mal 4 Zeiten
@@ -105,7 +107,13 @@
       box.replaceChildren(...kopf, el('p', { class: 'info' }, 'Gerade sind online keine Termine frei. Rufen Sie mich gern an: 0160 1572410.'));
       return;
     }
-    const zeiten = tage[tagWahl] || [];
+    const { vorschlag = [], alle = [] } = tage[tagWahl] || {};
+    // gewählte Zeit aus dem Menü zusätzlich als Knopf zeigen
+    const zeiten = zeitWahl && alle.includes(zeitWahl) && !vorschlag.includes(zeitWahl) ? [...vorschlag, zeitWahl].sort() : vorschlag;
+    const rest = alle.filter(z => !zeiten.includes(z));
+    const menue = rest.length ? el('select', { class: 'mehr', 'aria-label': 'Andere Uhrzeit wählen',
+      onchange: (e) => { if (e.target.value) { zeitWahl = e.target.value; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); } } },
+      el('option', { value: '' }, 'Andere Uhrzeit …'), ...rest.map(z => el('option', { value: z }, uhr(z) + ' Uhr'))) : null;
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
       onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
     // Leere Gruppen weglassen (replaceChildren würde sonst „null“ als Text einfügen)
@@ -114,6 +122,7 @@
         type: 'button', class: 'tag', 'aria-pressed': t === tagWahl ? 'true' : 'false',
         onclick: () => { tagWahl = t; zeitWahl = null; zeichnen(); } }, el('span', {}, wochentag(t)), el('b', {}, kurzDatum(t))))),
       el('div', { class: 'zeiten' }, ...zeiten.map(knopf)),
+      menue,
       zeitWahl ? formular() : el('p', { class: 'info' }, 'Keine passende Zeit dabei? Rufen Sie kurz an: ', el('a', { href: 'tel:+491601572410', style: 'color:inherit' }, '0160 1572410'), '.')].filter(Boolean));
   }
 
