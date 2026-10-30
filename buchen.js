@@ -7,8 +7,10 @@
   const API = 'https://api.cal.com/v2';
   const NUTZER = 'webrausch', TERMIN = 'erstgesprach', ZONE = 'Europe/Berlin';
   const TAGE = 21;
-  // Nicht alle freien Slots zeigen, sonst wirkt der Kalender leer: wenige Tage, wenige Zeiten pro Tag
-  const MAX_TAGE = 8, MAX_ZEITEN = 4;
+  const MAX_TAGE = 8;
+  // Zeitfenster (letzter Beginn) und Abstände zwischen angebotenen Zeiten: meist 45, oft 15, ab und zu 30 Minuten
+  const FENSTER = { Vormittags: ['07:00', '09:45'], Nachmittags: ['16:00', '18:45'] };
+  const ABSTAENDE = [45, 45, 45, 45, 15, 15, 15, 30, 30];
 
   const box = document.getElementById('buchen');
   if (!box) return;
@@ -28,9 +30,6 @@
 #buchen .tag[aria-pressed="true"] span{color:#000}
 #buchen .gruppe{font-size:13px;color:var(--muted,#a59d93);margin:4px 0 8px}
 #buchen .zeiten{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-#buchen .mehr{appearance:none;-webkit-appearance:none;background:var(--bg,#0b0b0b) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a59d93' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 16px center;border:1px solid var(--line,#2a2622);border-radius:12px;padding:12px 40px 12px 14px;color:var(--ink,#f4efe8);font:inherit;font-size:15px;cursor:pointer;width:100%}
-#buchen .mehr:hover{border-color:var(--orange,#ff7400)}
-#buchen .mehr:focus-visible{outline:2px solid var(--orange,#ff7400);outline-offset:2px}
 @media (max-width:420px){#buchen .zeiten{grid-template-columns:repeat(2,1fr)}}
 #buchen .tage{justify-content:flex-start}
 #buchen .tag{flex:0 0 auto}
@@ -80,25 +79,27 @@
       { headers: { 'cal-api-version': '2024-09-04' } });
     const d = (await r.json()).data || {};
     tage = {};
-    // Aus den in Cal.com freigegebenen Zeiten eine kleine Auswahl je Tag
     for (const [tag, slots] of Object.entries(d)) {
       if (Object.keys(tage).length >= MAX_TAGE) break;
-      const alle = slots.map(s => s.start).filter(z => /:(00|30)$/.test(uhr(z)));
-      if (alle.length) tage[tag] = { vorschlag: auswahl(tag, alle), alle };
+      const raster = Object.values(rasterFuer(tag)).flat();
+      const frei = slots.map(s => s.start).filter(z => raster.includes(uhr(z)));
+      if (frei.length) tage[tag] = frei;
     }
     tagWahl = Object.keys(tage)[0] || null;
     zeichnen();
   }
 
-  // Nur volle und halbe Stunden, gleichmäßig über den Tag verteilt; je Datum etwas anders, aber bei jedem Aufruf gleich
-  function auswahl(tag, glatt) {
-    if (glatt.length <= 2) return glatt;
-    const seed = [...tag].reduce((a, c) => a * 31 + c.charCodeAt(0), 7);
-    const n = Math.min(glatt.length, MAX_ZEITEN - (seed % 2));   // mal 3, mal 4 Zeiten
-    const schritt = glatt.length / n, versatz = (seed % 97) / 97;
-    const out = [];
-    for (let i = 0; i < n; i++) out.push(glatt[Math.min(glatt.length - 1, Math.floor((i + versatz) * schritt))]);
-    return [...new Set(out)];
+  // Angebotene Uhrzeiten je Tag: zufällige Abstände, aber aus dem Datum abgeleitet, also bei jedem Aufruf gleich
+  function rasterFuer(tag) {
+    let x = [...tag].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+    const zufall = () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 2 ** 32; };
+    const min = (t) => +t.slice(0, 2) * 60 + +t.slice(3), text = (m) => String(m / 60 | 0).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+    const out = {};
+    for (const [titel, [von, bis]] of Object.entries(FENSTER)) {
+      out[titel] = [];
+      for (let m = min(von); m <= min(bis); m += ABSTAENDE[Math.floor(zufall() * ABSTAENDE.length)]) out[titel].push(text(m));
+    }
+    return out;
   }
 
   function zeichnen() {
@@ -107,13 +108,7 @@
       box.replaceChildren(...kopf, el('p', { class: 'info' }, 'Gerade sind online keine Termine frei. Rufen Sie mich gern an: 0160 1572410.'));
       return;
     }
-    const { vorschlag = [], alle = [] } = tage[tagWahl] || {};
-    // gewählte Zeit aus dem Menü zusätzlich als Knopf zeigen
-    const zeiten = zeitWahl && alle.includes(zeitWahl) && !vorschlag.includes(zeitWahl) ? [...vorschlag, zeitWahl].sort() : vorschlag;
-    const rest = alle.filter(z => !zeiten.includes(z));
-    const menue = rest.length ? el('select', { class: 'mehr', 'aria-label': 'Andere Uhrzeit wählen',
-      onchange: (e) => { if (e.target.value) { zeitWahl = e.target.value; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); } } },
-      el('option', { value: '' }, 'Andere Uhrzeit …'), ...rest.map(z => el('option', { value: z }, uhr(z) + ' Uhr'))) : null;
+    const zeiten = tage[tagWahl] || [];
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
       onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
     // Leere Gruppen weglassen (replaceChildren würde sonst „null“ als Text einfügen)
@@ -121,8 +116,10 @@
       el('div', { class: 'tage', role: 'group', 'aria-label': 'Tag wählen' }, ...keys.map(t => el('button', {
         type: 'button', class: 'tag', 'aria-pressed': t === tagWahl ? 'true' : 'false',
         onclick: () => { tagWahl = t; zeitWahl = null; zeichnen(); } }, el('span', {}, wochentag(t)), el('b', {}, kurzDatum(t))))),
-      el('div', { class: 'zeiten' }, ...zeiten.map(knopf)),
-      menue,
+      ...Object.entries(rasterFuer(tagWahl)).map(([titel, liste]) => {
+        const frei = zeiten.filter(z => liste.includes(uhr(z)));
+        return frei.length ? el('div', {}, el('div', { class: 'gruppe' }, titel), el('div', { class: 'zeiten' }, ...frei.map(knopf))) : null;
+      }),
       zeitWahl ? formular() : el('p', { class: 'info' }, 'Keine passende Zeit dabei? Rufen Sie kurz an: ', el('a', { href: 'tel:+491601572410', style: 'color:inherit' }, '0160 1572410'), '.')].filter(Boolean));
   }
 
