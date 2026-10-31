@@ -65,6 +65,7 @@
   const uhr = (iso) => new Date(iso).toLocaleTimeString('de-DE', { timeZone: ZONE, hour: '2-digit', minute: '2-digit', hour12: false });
   const langDatum = (iso) => new Date(iso).toLocaleDateString('de-DE', { timeZone: ZONE, weekday: 'long', day: 'numeric', month: 'long' });
   const wochentag = (tag) => new Date(tag + 'T12:00:00Z').toLocaleDateString('de-DE', { timeZone: 'UTC', weekday: 'short' }).replace('.', '');
+  const melde = (name) => document.dispatchEvent(new CustomEvent('wr-ereignis', { detail: name }));   // für zaehler.js
   const kurzDatum = (tag) => new Date(tag + 'T12:00:00Z').toLocaleDateString('de-DE', { timeZone: 'UTC', day: 'numeric', month: 'numeric' });
 
   let tage = {}, tagWahl = null, zeitWahl = null;
@@ -110,7 +111,7 @@
     }
     const zeiten = tage[tagWahl] || [];
     const knopf = (z) => el('button', { type: 'button', class: 'zeit', 'aria-pressed': z === zeitWahl ? 'true' : 'false',
-      onclick: () => { zeitWahl = z; zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
+      onclick: () => { zeitWahl = z; melde('buchen-zeit'); zeichnen(); box.querySelector('input[name=name]')?.focus({ preventScroll: true }); box.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }, uhr(z) + ' Uhr');
     // Leere Gruppen weglassen (replaceChildren würde sonst „null“ als Text einfügen)
     box.replaceChildren(...[...kopf,
       el('div', { class: 'tage', role: 'group', 'aria-label': 'Tag wählen' }, ...keys.map(t => el('button', {
@@ -148,6 +149,7 @@
             bookingFieldsResponses: { notes: notiz } }) });
         const a = await r.json();
         if (!r.ok || a.status !== 'success') throw new Error(a.error?.message || 'Buchung fehlgeschlagen');
+        melde('buchen-fertig');
         box.replaceChildren(el('div', { class: 'fertig' }, el('div', { class: 'haken', 'aria-hidden': 'true' }, '✓'),
           el('b', {}, 'Termin gebucht'),
           el('div', {}, `${langDatum(zeitWahl)}, ${uhr(zeitWahl)} Uhr`),
