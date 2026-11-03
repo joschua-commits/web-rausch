@@ -42,6 +42,12 @@
 #buchen label{display:grid;gap:4px;font-size:14px;color:var(--muted,#a59d93)}
 #buchen input{background:var(--bg,#0b0b0b);border:1px solid var(--line,#2a2622);border-radius:12px;padding:13px 14px;color:var(--ink,#f4efe8);font:inherit;width:100%}
 #buchen .reihe{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#buchen .wo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#buchen .wo button{background:var(--bg,#0b0b0b);border:1px solid var(--line,#2a2622);border-radius:12px;padding:12px 8px;display:grid;gap:2px;text-align:center}
+#buchen .wo button b{font-size:15px} #buchen .wo button span{font-size:12px;color:var(--muted,#a59d93)}
+#buchen .wo button:hover{border-color:var(--orange,#ff7400)}
+#buchen .wo button[aria-pressed="true"]{background:var(--orange,#ff7400);border-color:var(--orange,#ff7400);color:#000}
+#buchen .wo button[aria-pressed="true"] span{color:#000}
 @media (max-width:520px){#buchen .reihe{grid-template-columns:1fr}}
 #buchen .senden{background:var(--orange,#ff7400);color:#000;border:0;border-radius:999px;padding:17px 22px;font-weight:700;font-size:16px}
 #buchen .senden[disabled]{opacity:.6;cursor:wait}
@@ -68,9 +74,9 @@
   const melde = (name) => document.dispatchEvent(new CustomEvent('wr-ereignis', { detail: name }));   // für zaehler.js
   const kurzDatum = (tag) => new Date(tag + 'T12:00:00Z').toLocaleDateString('de-DE', { timeZone: 'UTC', day: 'numeric', month: 'numeric' });
 
-  let tage = {}, tagWahl = null, zeitWahl = null;
+  let tage = {}, tagWahl = null, zeitWahl = null, wo = 'vorort';   // wo: 'vorort' (ich komme vorbei) oder 'online'
   const kopf = [el('h2', {}, '15 Minuten direkt hier buchen'),
-    el('p', { class: 'sub' }, 'Kostenlos und unverbindlich. Sie bekommen danach eine Bestätigung per E-Mail mit dem Link zum Gespräch.')];
+    el('p', { class: 'sub' }, 'Kostenlos und unverbindlich, bei Ihnen vor Ort oder online. Sie bekommen danach eine Bestätigung per E-Mail.')];
   box.replaceChildren(...kopf, el('p', { class: 'info' }, 'Freie Termine werden geladen …'));
 
   async function laden() {
@@ -126,8 +132,16 @@
 
   function formular() {
     const fehler = el('p', { class: 'fehler', role: 'alert' });
+    const adresse = el('label', {}, 'Adresse (Straße, Ort)', el('input', { name: 'adresse', autocomplete: 'street-address' }));
+    adresse.hidden = wo !== 'vorort';
     const f = el('form', { novalidate: '' },
       el('div', { class: 'gewaehlt' }, `${langDatum(zeitWahl)}, ${uhr(zeitWahl)} Uhr`),
+      el('div', { class: 'wo', role: 'group', 'aria-label': 'Wo soll das Gespräch stattfinden?' },
+        ...[['vorort', 'Vor Ort bei Ihnen', 'ich komme vorbei'], ['online', 'Online', 'per Videolink']].map(([wert, titel, zusatz]) =>
+          el('button', { type: 'button', 'aria-pressed': wo === wert ? 'true' : 'false',
+            onclick: (e) => { wo = wert; for (const b of f.querySelectorAll('.wo button')) b.setAttribute('aria-pressed', b === e.currentTarget ? 'true' : 'false'); adresse.hidden = wo !== 'vorort'; } },
+            el('b', {}, titel), el('span', {}, zusatz)))),
+      adresse,
       el('div', { class: 'reihe' },
         el('label', {}, 'Ihr Name', el('input', { name: 'name', autocomplete: 'name', required: '' })),
         el('label', {}, 'E-Mail', el('input', { name: 'email', type: 'email', autocomplete: 'email', required: '' }))),
@@ -138,9 +152,10 @@
       e.preventDefault();
       const d = Object.fromEntries(new FormData(f));
       if (!d.name.trim() || !/^\S+@\S+\.\S+$/.test(d.email.trim())) { fehler.textContent = 'Bitte Name und eine gültige E-Mail-Adresse eintragen.'; return; }
+      if (wo === 'vorort' && !d.adresse.trim()) { fehler.textContent = 'Bitte die Adresse eintragen, damit ich weiß, wohin ich komme. Oder „Online“ wählen.'; return; }
       const knopf = f.querySelector('.senden');
       knopf.disabled = true; knopf.textContent = 'Wird gebucht …'; fehler.textContent = '';
-      const notiz = [betrieb && `Betrieb: ${betrieb}`, `Gebucht über ${quelle}`, d.telefon && `Lieber per Telefon: ${d.telefon}`].filter(Boolean).join('\n');
+      const notiz = [wo === 'vorort' ? `VOR ORT: ${d.adresse.trim()}` : 'ONLINE (Videolink)', betrieb && `Betrieb: ${betrieb}`, `Gebucht über ${quelle}`, d.telefon && `Lieber per Telefon: ${d.telefon}`].filter(Boolean).join('\n');
       try {
         const r = await fetch(`${API}/bookings`, {
           method: 'POST', headers: { 'cal-api-version': '2024-08-13', 'Content-Type': 'application/json' },
@@ -153,7 +168,7 @@
         box.replaceChildren(el('div', { class: 'fertig' }, el('div', { class: 'haken', 'aria-hidden': 'true' }, '✓'),
           el('b', {}, 'Termin gebucht'),
           el('div', {}, `${langDatum(zeitWahl)}, ${uhr(zeitWahl)} Uhr`),
-          el('p', { class: 'info' }, `Die Bestätigung mit dem Link zum Gespräch geht an ${d.email.trim()}. Ich freue mich auf Sie!`)));
+          el('p', { class: 'info' }, wo === 'vorort' ? `Ich komme zu Ihnen: ${d.adresse.trim()}. Die Bestätigung geht an ${d.email.trim()}. Ich freue mich auf Sie!` : `Die Bestätigung mit dem Videolink geht an ${d.email.trim()}. Ich freue mich auf Sie!`)));
       } catch (err) {
         knopf.disabled = false; knopf.textContent = 'Termin verbindlich buchen';
         fehler.textContent = 'Das hat leider nicht geklappt, vielleicht wurde die Zeit gerade vergeben. Bitte eine andere Zeit wählen oder anrufen: 0160 1572410.';
