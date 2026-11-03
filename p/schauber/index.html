@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Webrausch</title>
+<style>body{margin:0;background:#0b0b0b}</style>
+</head>
+<body>
+<script>
+(() => {
+  const weiter = () => location.replace('/');
+  let intern = false;
+  try { intern = !!localStorage.getItem('wr-intern'); } catch (e) {}
+  if (intern) return weiter();
+  // GoatCounter-Zählpixel direkt aufrufen (count.js wäre hier zu langsam, die Seite leitet sofort weiter)
+  const url = 'https://webrausch.goatcounter.com/count?p=' + encodeURIComponent('/post/schauber') +
+              '&t=' + encodeURIComponent('Postkarte schauber') + '&r=qr&s=' + screen.width + '&rnd=' + Math.random().toString(36).slice(2);
+  const img = new Image();
+  img.onload = img.onerror = weiter;
+  img.src = url;
+  setTimeout(weiter, 1500);   // falls der Zähler hängt, trotzdem weiter
+})();
+</script>
+<noscript><img src="https://webrausch.goatcounter.com/count?p=/post/schauber" alt=""><meta http-equiv="refresh" content="0;url=/"></noscript>
+</body>
+</html>
