@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Webrausch – Websites und digitale Werkzeuge für Betriebe in Reutlingen und Tübingen</title>
+<meta name="description" content="Webrausch baut, was Ihr Betrieb digital braucht: Website, Online-Anfrage, Terminbuchung, Preisrechner, Automationen und eigene Werkzeuge. Aus Reutlingen, erster Entwurf kostenlos.">
+<meta name="theme-color" content="#0b0b0b">
+<meta property="og:title" content="Webrausch – Ich baue, was Ihr Betrieb digital braucht.">
+<meta property="og:description" content="Website, Online-Anfrage, Terminbuchung, Preisrechner und eigene Werkzeuge. Aus Reutlingen, erster Entwurf kostenlos.">
+<meta property="og:image" content="img/og.jpg">
+<link rel="icon" href="img/marke/icon.svg" type="image/svg+xml">
+<link rel="icon" href="img/marke/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="img/marke/apple-touch-icon.png">
+<link rel="preload" href="fonts/unbounded.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css?v=20261104">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav-logo" aria-label="Webrausch Startseite"><img src="img/marke/logo.svg" alt="webrausch" width="196" height="28"></a>
+  <nav>
+    <a href="#bausteine" class="hide-m">Leistungen</a>
+    <a href="#beispiele" class="hide-m">Beispiele</a>
+    <a href="ueber-mich.html" class="hide-m">Über mich</a>
+    <a href="#kontakt" class="btn btn-small magnetic">Entwurf anfragen</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- 1 HERO -->
+  <section class="hero" id="hero">
+    <canvas id="flow" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow hero-pill"><span class="pulse"></span>Reutlingen &amp; Tübingen</p>
+      <h1 class="hero-title">Ich baue, was Ihr Betrieb <span class="accent">digital braucht.</span></h1>
+      <p class="hero-sub">Websites, Anfragen, Termine und eigene Werkzeuge.</p>
+      <div class="hero-ctas">
+        <a class="btn magnetic" href="#kontakt">Kostenlosen Entwurf anfragen</a>
+        <a class="text-link" href="#beispiele">Beispiele ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schriftzug als Übergang -->
+  <div class="brand-band" aria-hidden="true"><div class="foot-giant band-giant">webrausch</div></div>
+
+  <!-- ÜBER MICH + WERTE (weit oben) -->
+  <section class="about about-top" id="ueber">
+    <div class="wrap">
+      <div class="about-grid">
+        <img src="img/joschua-600.jpg" srcset="img/joschua-600.jpg 600w, img/joschua.jpg 1248w" sizes="(max-width:700px) 60vw, 300px" alt="Joschua Rauscher" width="600" height="600" class="about-photo">
+        <div>
+          <p class="eyebrow">Wer hinter Webrausch steckt</p>
+          <h2 class="big">Hallo, ich bin Joschua.</h2>
+          <div class="about-text">
+            <p>Ich komme aus Reutlingen und baue Websites und digitale Werkzeuge für Handwerksbetriebe aus der Region.</p>
+            <p>Hauptberuflich arbeite ich in einem Start-up eng mit dem CEO zusammen. Dort habe ich gelernt, wie Kunden entscheiden: nach Vertrauen und nach der Qualität, die man liefert. Genau so baue ich Ihre Seite.</p>
+            <p>Hinter Webrausch steckt keine Agentur, sondern ich: ein Ansprechpartner, der ans Telefon geht und auch mal vorbeikommt.</p>
+            <p>Privat findet man mich auf dem Fußballplatz, im Gym oder mit Freunden in der Küche. Und ja, ich bin Bayern-Fan. Das verzeiht mir hier nicht jeder VfB-Fan.</p>
+          </div>
+          <div class="about-links"><a class="q-link" href="ueber-mich.html">Mehr über mich <span>→</span></a><a class="text-link" href="tel:+491601572410">0160 1572410</a></div>
+        </div>
+      </div>
+      <div class="werte">
+        <div><span>01</span><b>Ehrlichkeit</b><p>Klare Worte statt Fachchinesisch. Was wir vereinbaren, gilt. Und wenn Sie etwas nicht brauchen, sage ich es Ihnen.</p></div>
+        <div><span>02</span><b>Menschlichkeit</b><p>Sie sprechen immer mit mir, nicht mit einem Ticketsystem. Ich gehe ans Telefon und komme auch mal vorbei.</p></div>
+        <div><span>03</span><b>Erst sehen, dann zahlen</b><p>Den ersten Entwurf bekommen Sie kostenlos. Gefällt er nicht, kostet es nichts.</p></div>
+        <div><span>04</span><b>Ich kümmere mich um alles</b><p>Texte, Bilder, Technik, Datenschutz und Updates. Sie machen Ihr Handwerk, ich den Rest.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 BAUSTEINE -->
+  <section class="blocks" id="bausteine">
+    <div class="wrap">
+      <p class="eyebrow">Die Bausteine</p>
+      <h2 class="big">Alles aus einer Hand. Frei kombinierbar.</h2>
+      <p class="lede">Einzeln oder zusammen. Ganz wie Sie es brauchen.</p>
+      <div class="block-grid">
+        <article class="block spot">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>
+          <h3>Website</h3>
+          <p>Modern, fürs Handy, in 7 Tagen online.</p>
+          <a class="b-link" href="#anfrage">Ansehen →</a>
+        </article>
+        <article class="block spot">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></span>
+          <h3>Anfrage-Assistent</h3>
+          <p>Fertige Anfragen mit Foto statt „Bitte zurückrufen“.</p>
+          <a class="b-link" href="#beispiele" data-demo="1">Ausprobieren →</a>
+        </article>
+        <article class="block spot">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/></svg></span>
+          <h3>Online-Terminbuchung</h3>
+          <p>Kunden buchen Ihre freien Zeiten selbst.</p>
+          <a class="b-link" href="#beispiele" data-demo="2">Ausprobieren →</a>
+        </article>
+        <article class="block spot">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 14h2M12 14h2M8 17h2M12 17h4"/></svg></span>
+          <h3>Preisrechner</h3>
+          <p>Kunden sehen sofort, was es ungefähr kostet.</p>
+          <a class="b-link" href="#beispiele" data-demo="0">Ausprobieren →</a>
+        </article>
+        <article class="block spot">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg></span>
+          <h3>Automationen</h3>
+          <p>Anfragen, Erinnerungen und Bewertungen laufen von selbst.</p>
+        </article>
+        <article class="block spot b-wide">
+          <span class="b-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span>
+          <h3>Individuelle Werkzeuge</h3>
+          <p>Was es für Ihre Abläufe noch nicht gibt, baue ich.</p>
+          <a class="b-link" href="#beispiele" data-demo="3">Ausprobieren →</a>
+        </article>
+      </div>
+      <p class="b-foot">Ihre Idee ist nicht dabei? <a class="text-link" href="#kontakt">Erzählen Sie mir davon.</a></p>
+    </div>
+  </section>
+
+  <!-- 3 BEISPIELE -->
+  <section class="demos" id="beispiele">
+    <div class="wrap">
+      <p class="eyebrow">Beispiele zum Ausprobieren</p>
+      <h2 class="big">Klicken Sie ruhig. Alles echt.</h2>
+      <p class="lede">Beispielbetriebe, echte Technik.</p>
+
+      <div class="site-galerie">
+        <div class="sg-tabs" role="tablist" aria-label="Beispiel-Websites">
+          <button role="tab" aria-selected="true" data-site="schreinerei"><small>Schreinerei</small>Eichental</button>
+          <button role="tab" aria-selected="false" data-site="zimmerei"><small>Zimmerei &amp; Holzbau</small>Firstholz</button>
+          <button role="tab" aria-selected="false" data-site="maler"><small>Malerbetrieb</small>kalkweiss</button>
+        </div>
+        <figure class="site-demo">
+          <div class="sd-browser">
+            <div class="sd-bar"><i></i><i></i><i></i><span id="sg-url">Beispiel-Website · Schreinerei</span></div>
+            <img id="sg-desktop" src="img/beispiele/beispiel-schreinerei-desktop.jpg" alt="Beispiel-Website für eine Schreinerei" width="2160" height="1350" loading="lazy">
+          </div>
+          <div class="sd-phone"><img id="sg-handy" src="img/beispiele/beispiel-schreinerei-handy.jpg" alt="Dieselbe Beispiel-Website auf dem Handy" width="1170" height="2532" loading="lazy"></div>
+          <figcaption><b>Beispiel-Websites für Handwerksbetriebe</b>Mehrere Seiten, fürs Handy gemacht und datenschutzkonform. Jede Seite ist ein eigenes Design mit Farben, Bildern und Texten des Betriebs.</figcaption>
+        </figure>
+      </div>
+
+      <div class="d-tabs" role="tablist" aria-label="Beispiele">
+        <button role="tab" id="dt-0" aria-controls="dp-0" aria-selected="true"><small>Malerbetrieb</small>Preisrechner</button>
+        <button role="tab" id="dt-1" aria-controls="dp-1" aria-selected="false" tabindex="-1"><small>Badsanierung</small>Anfrage-Assistent</button>
+        <button role="tab" id="dt-2" aria-controls="dp-2" aria-selected="false" tabindex="-1"><small>Heizung</small>Terminbuchung</button>
+        <button role="tab" id="dt-3" aria-controls="dp-3" aria-selected="false" tabindex="-1"><small>Für Ihr Team</small>Stundenzettel</button>
+        <button role="tab" id="dt-4" aria-controls="dp-4" aria-selected="false" tabindex="-1"><small>Zu viele E-Mails?</small>Postfach, das mitdenkt</button>
+      </div>
+
+      <!-- Demo 1: Preisrechner -->
+      <div class="d-panel" role="tabpanel" id="dp-0" aria-labelledby="dt-0">
+        <div class="d-copy">
+          <h3>Der Kunde weiß den Preis, bevor er anruft.</h3>
+          <ul class="d-wins"><li>Weniger Preisanfragen ohne Auftrag</li><li>Maße und Wünsche sind schon da</li><li>Ihre eigenen Preise, jederzeit änderbar</li></ul>
+        </div>
+        <div class="d-app" id="calc">
+          <div class="app-head"><b>Maler <span>Beispiel</span></b><small>Preisrechner</small></div>
+          <label class="c-row">Grundfläche des Raums <output id="c-m2">20 m²</output>
+            <input type="range" id="c-size" min="6" max="60" step="1" value="20"></label>
+          <fieldset class="c-row"><legend>Was soll gestrichen werden?</legend>
+            <div class="chips">
+              <label><input type="checkbox" id="c-walls" checked><span>Wände</span></label>
+              <label><input type="checkbox" id="c-ceil" checked><span>Decke</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="c-row"><legend>Zustand der Wände</legend>
+            <div class="chips">
+              <label><input type="radio" name="c-state" value="1" checked><span>Gut</span></label>
+              <label><input type="radio" name="c-state" value="1.15"><span>Kleine Löcher</span></label>
+              <label><input type="radio" name="c-state" value="1.35"><span>Risse, spachteln</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="c-row"><legend>Farbe</legend>
+            <div class="chips">
+              <label><input type="radio" name="c-color" value="1" checked><span>Weiß</span></label>
+              <label><input type="radio" name="c-color" value="1.15"><span>Farbig</span></label>
+            </div>
+          </fieldset>
+          <div class="c-result" aria-live="polite"><small>Ihr Richtpreis inkl. Material</small><strong id="c-price">–</strong></div>
+          <button type="button" class="btn btn-small app-btn" id="c-send">Mit diesen Angaben anfragen</button>
+          <p class="app-done" id="c-done" hidden>✓ Anfrage gesendet. Beim Betrieb kommt an: <span id="c-sum"></span></p>
+        </div>
+      </div>
+
+      <!-- Demo 2: Anfrage-Assistent -->
+      <div class="d-panel" role="tabpanel" id="dp-1" aria-labelledby="dt-1" hidden>
+        <div class="d-copy">
+          <h3>Fertige Anfragen statt „Bitte zurückrufen“.</h3>
+          <ul class="d-wins"><li>Kein Hin und Her am Telefon</li><li>Fotos vom Ist-Zustand gleich dabei</li><li>Kommt per Mail oder aufs Handy</li></ul>
+        </div>
+        <div class="d-app" id="wiz">
+          <div class="app-head"><b>Bad <span>Beispiel</span></b><small>Anfrage in 1 Minute</small></div>
+          <div class="w-bar"><i id="w-bar"></i></div>
+          <div class="w-step" data-q="Was haben Sie vor?">
+            <div class="chips col"><button type="button">Bad komplett neu</button><button type="button">Teilsanierung</button><button type="button">Barrierefreies Bad</button><button type="button">Nur neue Fliesen</button></div>
+          </div>
+          <div class="w-step" data-q="Wie groß ist das Bad?" hidden>
+            <div class="chips col"><button type="button">bis 5 m²</button><button type="button">5 bis 10 m²</button><button type="button">über 10 m²</button></div>
+          </div>
+          <div class="w-step" data-q="Wann soll es losgehen?" hidden>
+            <div class="chips col"><button type="button">So bald wie möglich</button><button type="button">In den nächsten 3 Monaten</button><button type="button">Später, erst mal planen</button></div>
+          </div>
+          <div class="w-step" data-q="Haben Sie ein Foto vom jetzigen Bad?" hidden>
+            <div class="chips col"><button type="button" data-photo="1">📷 Foto hinzufügen</button><button type="button">Ohne Foto weiter</button></div>
+          </div>
+          <div class="w-result" hidden>
+            <p class="w-sent">✓ Gesendet. So kommt die Anfrage bei Ihnen an:</p>
+            <div class="w-note">
+              <div class="l-app"><span class="l-icon">✉</span>Neue Anfrage · Website<small>jetzt</small></div>
+              <b id="w-title"></b>
+              <span id="w-meta"></span>
+            </div>
+            <button type="button" class="text-link w-again">Noch mal von vorn</button>
+          </div>
+          <p class="w-q" id="w-q" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- Demo 3: Terminbuchung -->
+      <div class="d-panel" role="tabpanel" id="dp-2" aria-labelledby="dt-2" hidden>
+        <div class="d-copy">
+          <h3>Termine buchen sich von selbst.</h3>
+          <ul class="d-wins"><li>Nur die Zeiten, die Sie freigeben</li><li>Erinnerung am Vortag, weniger Ausfälle</li><li>Landet direkt in Ihrem Kalender</li></ul>
+        </div>
+        <div class="d-app" id="book">
+          <div class="app-head"><b>Heizung <span>Beispiel</span></b><small>Termin buchen</small></div>
+          <fieldset class="c-row"><legend>Was dürfen wir für Sie tun?</legend>
+            <div class="chips">
+              <label><input type="radio" name="b-svc" value="Heizungswartung · 60 Min." checked><span>Heizungswartung</span></label>
+              <label><input type="radio" name="b-svc" value="Beratung Wärmepumpe · 45 Min."><span>Beratung Wärmepumpe</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="c-row"><legend>Tag</legend><div class="days" id="b-days"></div></fieldset>
+          <fieldset class="c-row"><legend>Uhrzeit</legend><div class="slots" id="b-slots"></div></fieldset>
+          <button type="button" class="btn btn-small app-btn" id="b-send" disabled>Termin buchen</button>
+          <div class="b-done" id="b-done" hidden>
+            <p class="w-sent">✓ Gebucht. Der Kunde bekommt eine Bestätigung, bei Ihnen steht es im Kalender:</p>
+            <div class="cal-entry"><span id="b-when"></span><b id="b-what"></b><small>Familie Krämer · Pfullingen · Erinnerung am Vortag</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 4: Stundenzettel -->
+      <div class="d-panel" role="tabpanel" id="dp-3" aria-labelledby="dt-3" hidden>
+        <div class="d-copy">
+          <h3>Stundenzettel, die sich selbst schreiben.</h3>
+          <ul class="d-wins"><li>Keine Zettel mehr im Transporter</li><li>Stunden pro Baustelle auf einen Blick</li><li>Gebaut für Ihre Abläufe, nicht von der Stange</li></ul>
+        </div>
+        <div class="d-app" id="clock">
+          <div class="app-head"><b>Team <span>Beispiel</span></b><small>Stundenzettel · Mehmet</small></div>
+          <fieldset class="c-row"><legend>Baustelle</legend>
+            <div class="chips">
+              <label><input type="radio" name="k-site" value="Neubau Eningen" checked><span>Neubau Eningen</span></label>
+              <label><input type="radio" name="k-site" value="Bad Familie Krämer"><span>Bad Familie Krämer</span></label>
+              <label><input type="radio" name="k-site" value="Werkstatt"><span>Werkstatt</span></label>
+            </div>
+          </fieldset>
+          <div class="k-timer"><small id="k-state">Nicht eingestempelt</small><strong id="k-time">0:00 h</strong></div>
+          <button type="button" class="btn btn-small app-btn" id="k-btn">Einstempeln</button>
+          <ul class="k-list" id="k-list">
+            <li><span>Mo · Neubau Eningen</span><b>8:15 h</b></li>
+            <li><span>Di · Neubau Eningen</span><b>7:45 h</b></li>
+          </ul>
+          <div class="k-sum"><span>Diese Woche</span><b id="k-total">16:00 h</b></div>
+        </div>
+      </div>
+
+      <div class="d-panel" role="tabpanel" id="dp-4" aria-labelledby="dt-4" hidden>
+        <div class="d-copy">
+          <h3>Nie wieder Werbung und Spam durchsuchen.</h3>
+          <p>Ihr E-Mail-Postfach bleibt, wie es ist. Ich richte einmal einen digitalen Helfer ein, der jede neue Mail liest und sortiert: Kundenanfragen und Dringendes nach oben, Rechnungen beiseite, Werbung und Spam weg. Sie sehen morgens nur noch, was wirklich wichtig ist.</p>
+          <ul class="d-wins"><li>Funktioniert mit Ihrer bisherigen E-Mail-Adresse</li><li>Störungen und Notfälle stehen ganz oben</li><li>Werbung und Spam sehen Sie gar nicht mehr</li><li>Ich richte alles ein, Sie müssen nichts lernen</li></ul>
+        </div>
+        <div class="d-app" id="inbox">
+          <div class="app-head"><b>Ihre E-Mails <span>Beispiel</span></b><small>info@ihr-betrieb.de</small></div>
+          <div class="i-zahlen"><span><b id="i-neu">9</b> neu</span><span class="i-spam"><b id="i-spam">0</b> Spam aussortiert</span></div>
+          <ul class="i-liste" id="i-liste"><li class="m" data-art="spam"><span class="m-von">SEO-Agentur Top10</span><span class="m-betreff">Platz 1 bei Google garantiert!!!</span><span class="m-zeit">08:02</span><span class="m-tag"></span></li><li class="m" data-art="dringend"><span class="m-von">Müller Maschinenbau GmbH</span><span class="m-betreff">Störung an Anlage 3 – bitte dringend Rückruf</span><span class="m-zeit">08:14</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Gewinnservice</span><span class="m-betreff">Glückwunsch, Sie haben ein iPhone gewonnen</span><span class="m-zeit">08:31</span><span class="m-tag"></span></li><li class="m" data-art="anfrage"><span class="m-von">Familie Krämer</span><span class="m-betreff">Angebot für neue Unterverteilung im Keller?</span><span class="m-zeit">09:05</span><span class="m-tag"></span></li><li class="m" data-art="rechnung"><span class="m-von">Elektro-Großhandel Süd</span><span class="m-betreff">Rechnung 2026-1184</span><span class="m-zeit">09:40</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Branchenbuch Online</span><span class="m-betreff">Ihr Eintrag läuft ab – jetzt verlängern</span><span class="m-zeit">10:12</span><span class="m-tag"></span></li><li class="m" data-art="bewerbung"><span class="m-von">Lukas Weber</span><span class="m-betreff">Bewerbung als Elektroniker</span><span class="m-zeit">10:48</span><span class="m-tag"></span></li><li class="m" data-art="anfrage"><span class="m-von">Schreinerei Eichental</span><span class="m-betreff">Neuer Maschinenanschluss in der Werkstatt</span><span class="m-zeit">11:20</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Krypto Invest</span><span class="m-betreff">Ihr Gewinn wartet: 4.800 € in 7 Tagen</span><span class="m-zeit">11:55</span><span class="m-tag"></span></li></ul>
+          <button type="button" class="btn btn-small app-btn" id="i-btn">Automatisch sortieren</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 BRANCHEN -->
+  <section class="trades" id="branchen">
+    <div class="wrap">
+      <p class="eyebrow">Branchen</p>
+      <h2 class="big">Gebaut für Ihren Alltag.</h2>
+            <div class="trade-grid">
+        <article class="trade"><h3>Sanitär &amp; Heizung</h3><q>Was kostet ein neues Bad?</q><q>Wann ist die nächste Wartung frei?</q><p>Anfrage-Assistent · Terminbuchung · Wartungserinnerung</p></article>
+        <article class="trade"><h3>Elektro</h3><q>Können Sie eine Wallbox installieren?</q><q>Wie schnell kommen Sie bei einer Störung?</q><p>Anfrage mit Fotos · Notdienst-Knopf · Angebotsvorlagen</p></article>
+        <article class="trade"><h3>Maler</h3><q>Was kostet ein Zimmer?</q><q>Haben Sie im Frühjahr noch Zeit?</q><p>Preisrechner · Referenz-Galerie · Bewertungsanfrage</p></article>
+        <article class="trade"><h3>Zimmerei &amp; Dach</h3><q>Lohnt sich eine Dachsanierung?</q><q>Machen Sie auch Carports?</q><p>Projekt-Galerie · Anfrage mit Fotos · Stundenzettel</p></article>
+        <article class="trade"><h3>Fliesen</h3><q>Was kostet der m² verlegt?</q><q>Kann ich vorher Fliesen sehen?</q><p>Preisrechner · Termin in der Ausstellung · Galerie</p></article>
+        <article class="trade"><h3>Garten &amp; Landschaft</h3><q>Machen Sie auch Pflege im Abo?</q><q>Was kostet eine neue Terrasse?</q><p>Pflege-Abo online · Anfrage mit Maßen · Saisonplanung</p></article>
+      </div>
+      <p class="b-foot">Passt auch für Praxen, Studios, Vereine und Läden.</p>
+    </div>
+  </section>
+
+  <!-- 3 VOM SUCHEN ZUR ANFRAGE -->
+  <section class="journey" id="anfrage" aria-label="So wird aus einer Google-Suche eine Anfrage">
+    <div class="wrap j-head">
+      <p class="eyebrow">Baustein Website</p>
+      <h2 class="big">Vom Suchen zur Anfrage in 30 Sekunden.</h2>
+    </div>
+    <div class="wrap journey-grid">
+      <div class="j-copy">
+        <ol class="j-steps">
+          <li class="j-step"><button type="button"><span class="j-no">01</span><span><b>Der Kunde sucht.</b> Abends auf dem Sofa, am Handy: „Badsanierung Reutlingen“.</span><i class="j-bar"></i></button></li>
+          <li class="j-step"><button type="button"><span class="j-no">02</span><span><b>Er findet Sie.</b> Ihre Seite lädt sofort und ist am Handy klar lesbar.</span><i class="j-bar"></i></button></li>
+          <li class="j-step"><button type="button"><span class="j-no">03</span><span><b>Er schreibt Ihnen.</b> Zwei Felder, ein Tipp. Kein Anruf am nächsten Morgen nötig.</span><i class="j-bar"></i></button></li>
+          <li class="j-step"><button type="button"><span class="j-no">04</span><span><b>Ihr Handy meldet sich.</b> Die Anfrage liegt bei Ihnen, bevor der Kunde weitersucht.</span><i class="j-bar"></i></button></li>
+        </ol>
+      </div>
+
+      <div class="j-stage" aria-hidden="true">
+        <div class="j-glow"></div>
+        <div class="phone iphone j-phone" data-step="0">
+          <span class="island"></span>
+          <div class="ios-status"><span>21:14</span><span class="ios-ic"><svg viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M8 12 5.6 9.4a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.1 6.9a6.9 6.9 0 0 1 9.8 0l-1.5 1.6a4.8 4.8 0 0 0-6.8 0z"/><path d="M.6 4.3a10.5 10.5 0 0 1 14.8 0l-1.5 1.6a8.3 8.3 0 0 0-11.8 0z"/></svg><svg viewBox="0 0 27 13" aria-hidden="true"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".45"/><rect x="2.2" y="2.2" width="17" height="8.6" rx="2"/><rect x="24.6" y="4.3" width="1.8" height="4.4" rx=".9" opacity=".45"/></svg></span></div>
+          <div class="j-screens">
+            <!-- 1 Google -->
+            <div class="j-screen s-search">
+              <div class="g-head"><span class="g-logo">G<span>o</span><span>o</span>g<span>l</span><span>e</span></span><span class="g-avatar">M</span></div>
+              <div class="g-bar"><span class="g-ic">⌕</span><span id="jType"></span><i class="caret"></i></div>
+              <div class="g-tabs"><span class="on">Alle</span><span>Maps</span><span>Bilder</span><span>News</span><span>Videos</span></div>
+              <div class="g-res g-top">
+                <div class="g-site"><i class="g-fav">S</i><span>Sanitär Mustermann<small>sanitaer-mustermann.de</small></span></div>
+                <b>Badsanierung in Reutlingen – Sanitär Mustermann</b>
+                <span><em>★★★★★</em> 4,9 (87) · Meisterbetrieb seit 1987</span>
+                <i class="tap"></i>
+              </div>
+              <div class="g-res g-ghost"><small></small><b></b><span></span></div>
+              <div class="g-res g-ghost"><small></small><b></b><span></span></div>
+            </div>
+            <!-- 2 Website -->
+            <div class="j-screen s-site">
+              <div class="site-view">
+                <div class="site-scroll">
+                  <div class="site-nav"><b>Sanitär <span>Mustermann</span></b><i class="burger"></i></div>
+                  <div class="site-hero"><img src="img/bad-1.jpg" alt="" width="640" height="427"><div><span class="n-tag">Meisterbetrieb seit 1987</span><strong>Ihr neues Bad.<br>Geplant, gebaut, fertig.</strong></div></div>
+                  <div class="site-rating"><span class="stars">★★★★★</span><b>4,9</b> · 87 Google-Bewertungen</div>
+                  <p class="site-h">Unsere letzten Bäder</p>
+                  <div class="site-gallery"><img src="img/bad-2.jpg" alt="" width="640" height="427"><img src="img/bad-3.jpg" alt="" width="640" height="426"></div>
+                  <div class="n-services"><span>Badsanierung</span><span>Wärmepumpe</span><span>Notdienst</span></div>
+                </div>
+              </div>
+              <div class="site-cta">Anfrage senden →<i class="tap"></i></div>
+            </div>
+            <!-- 3 Formular -->
+            <div class="j-screen s-form">
+              <p class="f-title">Anfrage an Sanitär Mustermann</p>
+              <div class="f-field"><small>Name</small><span id="jName"></span></div>
+              <div class="f-field f-area"><small>Worum geht es?</small><span id="jMsg"></span></div>
+              <div class="f-field"><small>Rückruf</small><span>Abends ab 18 Uhr</span></div>
+              <div class="f-send" id="jSend"><span class="f-send-a">Anfrage senden</span><span class="f-send-b">✓ Gesendet</span></div>
+            </div>
+            <!-- 4 Handy des Handwerkers -->
+            <div class="j-screen s-lock">
+              <p class="l-time">21:15</p>
+              <p class="l-date">Donnerstag, 29. Oktober</p>
+              <div class="l-note">
+                <div class="l-app"><span class="l-icon">✉</span>Neue Anfrage · web-rausch<small>jetzt</small></div>
+                <b>Familie Weber – Bad komplett neu</b>
+                <span>ca. 8 m² · Rückruf abends ab 18 Uhr · über Ihre Website</span>
+              </div>
+            </div>
+          </div>
+          <div class="safari"><span class="sf-aa">AA</span><span class="sf-url"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h.5A1.5 1.5 0 0 1 10 6.5v4A1.5 1.5 0 0 1 8.5 12h-7A1.5 1.5 0 0 1 0 10.5v-4A1.5 1.5 0 0 1 1.5 5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z"/></svg><span class="j-url-text">google.de</span></span><span class="sf-re">↻</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 ABLAUF -->
+  <section class="timeline" id="ablauf">
+    <div class="wrap">
+      <p class="eyebrow">So läuft es ab</p>
+      <h2 class="big">Von der Idee bis es läuft.</h2>
+      <ol class="tl" id="tl">
+        <li><span class="tl-day">Schritt 1</span><span class="tl-dot"></span><h3>Kurzes Gespräch</h3><p>20 Minuten, am Telefon oder vor Ort.</p></li>
+        <li><span class="tl-day">Schritt 2</span><span class="tl-dot"></span><h3>Kostenloser Entwurf</h3><p>Sie sehen es, bevor Sie zahlen.</p></li>
+        <li><span class="tl-day">Schritt 3</span><span class="tl-dot"></span><h3>Angebot und Umsetzung</h3><p>Ein Angebot, das zu Ihrem Bedarf passt. Ich mache den Rest.</p></li>
+        <li><span class="tl-day">Schritt 4</span><span class="tl-dot"></span><h3>Es läuft</h3><p>Und ich bleibe Ihr Ansprechpartner.</p></li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- 8 KONTAKT -->
+  <section class="contact" id="kontakt">
+    <canvas id="sparks" aria-hidden="true"></canvas>
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h2 class="big">Erzählen Sie mir, was Sie brauchen.</h2>
+        <p class="lede">Auch wenn es erst eine Idee ist. Antwort innerhalb eines Werktags.</p>
+        <div class="direct">
+          <a href="tel:+491601572410"><span>Telefon</span>+49 160 1572410</a>
+          <a href="mailto:joschua@web-rausch.com"><span>E-Mail</span>joschua@web-rausch.com</a>
+        </div>
+      </div>
+      <form id="form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <input type="hidden" name="access_key" value="a5f65719-67f1-4d9e-ba72-02f3773aa0bb">
+        <input type="hidden" name="subject" value="Neue Anfrage über web-rausch.com">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <div class="row2">
+          <label for="f-name">Ihr Name<input id="f-name" name="name" required autocomplete="name"></label>
+          <label for="f-firma">Betrieb<input id="f-firma" name="betrieb" autocomplete="organization"></label>
+        </div>
+        <div class="row2">
+          <label for="f-tel">Telefon<input id="f-tel" name="telefon" type="tel" autocomplete="tel"></label>
+          <label for="f-mail">E-Mail<input id="f-mail" name="email" type="email" required autocomplete="email"></label>
+        </div>
+        <label for="f-topic">Worum geht es?<select id="f-topic" name="thema">
+          <option>Neue Website</option><option>Anfrage-Assistent</option><option>Online-Terminbuchung</option><option>Preisrechner</option><option>Automation</option><option>Eigenes Werkzeug</option><option>Weiß ich noch nicht</option>
+        </select></label>
+        <label for="f-web">Ihre jetzige Website (falls vorhanden)<input id="f-web" name="website" placeholder="www.ihr-betrieb.de"></label>
+        <label for="f-text">Nachricht<textarea id="f-text" name="nachricht" placeholder="z. B. Wir telefonieren jede Woche stundenlang Wartungstermine hinterher."></textarea></label>
+        <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
+        <button class="btn magnetic" type="submit" id="f-send">Anfrage senden</button>
+        <p class="msg" id="f-msg" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-giant" aria-hidden="true">webrausch</div>
+  <div class="wrap foot-row">
+    <span>© 2026 Webrausch · Joschua Rauscher · Albstraße 24 · 72764 Reutlingen</span>
+    <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+
+<script src="main.js?v=20261104" defer></script>
+</body>
+</html>

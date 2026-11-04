@@ -167,7 +167,7 @@
     tabs.forEach(function (t, k) {
       var on = k === i;
       t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
-      $("#dp-" + k).hidden = !on;
+      $("#" + t.getAttribute("aria-controls")).hidden = !on;
     });
     if (focus) tabs[i].focus();
   }
@@ -178,7 +178,7 @@
       if (d) { e.preventDefault(); openDemo((k + d + tabs.length) % tabs.length, true); }
     });
   });
-  $$("[data-demo]").forEach(function (a) { a.addEventListener("click", function () { openDemo(+a.dataset.demo); }); });
+  $$("[data-demo]").forEach(function (a) { a.addEventListener("click", function () { openDemo(tabs.indexOf($("#dt-" + a.dataset.demo))); }); });
 
   // Beispiel-Websites umschalten
   (function () {
