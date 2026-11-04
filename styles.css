@@ -537,3 +537,62 @@ select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(
 .p-item span{font:500 13px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .p-note{margin-top:22px;color:var(--muted);font-size:14px}
 @media (max-width:760px){.p-row{grid-template-columns:1fr}.p-item,.p-item+.p-item{border-left:0;padding:26px 0}.p-item+.p-item{border-top:1px solid var(--line)}}
+
+/* Beispiel-Website (Dummy „Elektro Mustermann“) im Browser- und Handyrahmen */
+.site-demo{position:relative;margin:48px 0 64px;padding-right:110px}
+.sd-browser{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#1b1916;box-shadow:0 40px 90px -40px rgba(255,116,0,.35)}
+.sd-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#1b1916;border-bottom:1px solid var(--line)}
+.sd-bar i{width:11px;height:11px;border-radius:50%;background:#3a3530}
+.sd-bar span{margin-left:12px;flex:1;max-width:340px;background:#0f0e0c;border-radius:7px;padding:5px 12px;font:500 12.5px/1.2 var(--f-mono);color:var(--muted)}
+.sd-browser img{width:100%;height:auto}
+.sd-phone{position:absolute;right:0;bottom:-40px;width:min(24%,230px);border-radius:30px;overflow:hidden;border:7px solid #1b1916;box-shadow:0 30px 70px -20px rgba(0,0,0,.8)}
+.sd-phone img{width:100%;height:auto}
+.site-demo figcaption{margin-top:62px;color:var(--muted);max-width:48em}
+.site-demo figcaption b{display:block;color:var(--ink);font-size:19px;margin-bottom:4px}
+@media (max-width:700px){.site-demo{padding-right:0}.sd-phone{width:32%;right:-4px;bottom:auto;top:46%;border-width:5px;border-radius:20px}.site-demo figcaption{margin-top:22px;padding-right:36%}.site-demo figcaption b{font-size:17px}}
+
+/* Über mich + Werte direkt nach dem Hero */
+.about-top{border-top:0}
+.about-top .about-photo{width:clamp(180px,24vw,300px)}
+.about-text{margin-top:22px;max-width:40em;color:var(--muted);font-size:clamp(17px,1.4vw,19px)}
+.about-text p{margin:0 0 .7em}
+.todo{background:#ffd23f;color:#000;padding:0 6px;border-radius:4px}
+.werte{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(40px,6vw,70px)}
+.werte div{border:1px solid var(--line);border-radius:18px;padding:24px 22px;background:var(--bg2)}
+.werte span{display:block;font:500 12px/1 var(--f-mono);color:var(--orange);letter-spacing:.1em;margin-bottom:16px}
+.werte b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+.werte p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.5}
+@media (max-width:900px){.werte{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.werte{grid-template-columns:1fr}}
+
+/* Demo 5: KI-Posteingang */
+.i-zahlen{display:flex;gap:10px;flex-wrap:wrap;font-size:13.5px;color:#5c544c}
+.i-zahlen span{background:#fff;border:1px solid #e3ddd4;border-radius:999px;padding:6px 12px}
+.i-zahlen b{color:#1b1714}
+.i-zahlen .i-spam.an{background:#fdecec;border-color:#f5c2c2;color:#a8332b}
+.i-liste{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.m{display:grid;grid-template-columns:1fr auto;grid-template-areas:"von zeit" "betreff tag";gap:2px 10px;background:#fff;border:1px solid #e9e3da;border-radius:12px;padding:9px 12px;transition:opacity .4s,transform .4s,max-height .45s,padding .45s,margin .45s,border-color .3s;max-height:80px;overflow:hidden}
+.m-von{grid-area:von;font-weight:700;font-size:14px}
+.m-betreff{grid-area:betreff;font-size:13px;color:#5c544c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-zeit{grid-area:zeit;font:500 11px var(--f-mono);color:#9a9087}
+.m-tag{grid-area:tag;font-size:11px;font-weight:700;border-radius:999px;padding:0 8px;line-height:20px;align-self:center;opacity:0;transition:opacity .3s}
+#inbox.sortiert .m-tag{opacity:1}
+#inbox.sortiert .m[data-art=dringend]{border-color:#f0a59f;background:#fff7f6}
+.m[data-art=dringend] .m-tag{background:#fde3e1;color:#b42318}
+.m[data-art=anfrage] .m-tag{background:#fff0e0;color:#b54708}
+.m[data-art=bewerbung] .m-tag{background:#e6f6ec;color:#1f7a45}
+.m[data-art=rechnung] .m-tag{background:#ece9e4;color:#5c544c}
+.m.weg{opacity:0;transform:translateX(30px);max-height:0;padding-top:0;padding-bottom:0;border-width:0;margin-top:-6px}
+
+/* Beispiel-Websites: Umschalter */
+.site-galerie{margin:48px 0 64px}
+.sg-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.sg-tabs::-webkit-scrollbar{display:none}
+.sg-tabs button{flex:none;display:grid;gap:3px;text-align:left;font:700 15px var(--f-body);color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:10px 16px;cursor:pointer;transition:color .2s,border-color .2s}
+.sg-tabs button small{font:500 10.5px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#7a7168}
+.sg-tabs button:hover{color:var(--ink)}
+.sg-tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--orange)}
+.sg-tabs button[aria-selected="true"] small{color:var(--ember)}
+.site-galerie .site-demo{margin-top:18px}
+.site-galerie .sd-browser img,.site-galerie .sd-phone img{transition:opacity .25s}
+.site-galerie.wechselt .sd-browser img,.site-galerie.wechselt .sd-phone img{opacity:0}

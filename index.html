@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="img/marke/apple-touch-icon.png">
 <link rel="preload" href="fonts/unbounded.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20261104">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -48,6 +48,32 @@
 
   <!-- Schriftzug als Übergang -->
   <div class="brand-band" aria-hidden="true"><div class="foot-giant band-giant">webrausch</div></div>
+
+  <!-- ÜBER MICH + WERTE (weit oben) -->
+  <section class="about about-top" id="ueber">
+    <div class="wrap">
+      <div class="about-grid">
+        <img src="img/joschua-600.jpg" srcset="img/joschua-600.jpg 600w, img/joschua.jpg 1248w" sizes="(max-width:700px) 60vw, 300px" alt="Joschua Rauscher" width="600" height="600" class="about-photo">
+        <div>
+          <p class="eyebrow">Wer hinter Webrausch steckt</p>
+          <h2 class="big">Hallo, ich bin Joschua.</h2>
+          <div class="about-text">
+            <p>Ich komme aus Reutlingen und baue Websites und digitale Werkzeuge für Handwerksbetriebe aus der Region.</p>
+            <p>Hauptberuflich arbeite ich in einem Start-up eng mit dem CEO zusammen. Dort habe ich gelernt, wie Kunden entscheiden: nach Vertrauen und nach der Qualität, die man liefert. Genau so baue ich Ihre Seite.</p>
+            <p>Hinter Webrausch steckt keine Agentur, sondern ich: ein Ansprechpartner, der ans Telefon geht und auch mal vorbeikommt.</p>
+            <p>Privat findet man mich auf dem Fußballplatz, im Gym oder mit Freunden in der Küche. Und ja, ich bin Bayern-Fan. Das verzeiht mir hier nicht jeder VfB-Fan.</p>
+          </div>
+          <div class="about-links"><a class="q-link" href="ueber-mich.html">Mehr über mich <span>→</span></a><a class="text-link" href="tel:+491601572410">0160 1572410</a></div>
+        </div>
+      </div>
+      <div class="werte">
+        <div><span>01</span><b>Ehrlichkeit</b><p>Klare Worte und ein fester Preis. Was wir vereinbaren, gilt. Und wenn Sie etwas nicht brauchen, sage ich es Ihnen.</p></div>
+        <div><span>02</span><b>Menschlichkeit</b><p>Sie sprechen immer mit mir, nicht mit einem Ticketsystem. Ich gehe ans Telefon und komme auch mal vorbei.</p></div>
+        <div><span>03</span><b>Erst sehen, dann zahlen</b><p>Den ersten Entwurf bekommen Sie kostenlos. Gefällt er nicht, kostet es nichts.</p></div>
+        <div><span>04</span><b>Sauber und sicher</b><p>Ohne Google Fonts, Cookies und Tracker. Datenschutzkonform von Anfang an.</p></div>
+      </div>
+    </div>
+  </section>
 
   <!-- 2 BAUSTEINE -->
   <section class="blocks" id="bausteine">
@@ -103,11 +129,28 @@
       <h2 class="big">Klicken Sie ruhig. Alles echt.</h2>
       <p class="lede">Beispielbetriebe, echte Technik.</p>
 
+      <div class="site-galerie">
+        <div class="sg-tabs" role="tablist" aria-label="Beispiel-Websites">
+          <button role="tab" aria-selected="true" data-site="schreinerei"><small>Schreinerei</small>Eichental</button>
+          <button role="tab" aria-selected="false" data-site="zimmerei"><small>Zimmerei &amp; Holzbau</small>Firstholz</button>
+          <button role="tab" aria-selected="false" data-site="maler"><small>Malerbetrieb</small>kalkweiss</button>
+        </div>
+        <figure class="site-demo">
+          <div class="sd-browser">
+            <div class="sd-bar"><i></i><i></i><i></i><span id="sg-url">Beispiel-Website · Schreinerei</span></div>
+            <img id="sg-desktop" src="img/beispiele/beispiel-schreinerei-desktop.jpg" alt="Beispiel-Website für eine Schreinerei" width="2160" height="1350" loading="lazy">
+          </div>
+          <div class="sd-phone"><img id="sg-handy" src="img/beispiele/beispiel-schreinerei-handy.jpg" alt="Dieselbe Beispiel-Website auf dem Handy" width="1170" height="2532" loading="lazy"></div>
+          <figcaption><b>Beispiel-Websites für Handwerksbetriebe</b>Mehrere Seiten, fürs Handy gemacht, ohne Google Fonts, Cookies oder Tracker. Jede Seite ist ein eigenes Design mit Farben, Bildern und Texten des Betriebs.</figcaption>
+        </figure>
+      </div>
+
       <div class="d-tabs" role="tablist" aria-label="Beispiele">
         <button role="tab" id="dt-0" aria-controls="dp-0" aria-selected="true"><small>Malerbetrieb</small>Preisrechner</button>
         <button role="tab" id="dt-1" aria-controls="dp-1" aria-selected="false" tabindex="-1"><small>Badsanierung</small>Anfrage-Assistent</button>
         <button role="tab" id="dt-2" aria-controls="dp-2" aria-selected="false" tabindex="-1"><small>Heizung</small>Terminbuchung</button>
         <button role="tab" id="dt-3" aria-controls="dp-3" aria-selected="false" tabindex="-1"><small>Für Ihr Team</small>Stundenzettel</button>
+        <button role="tab" id="dt-4" aria-controls="dp-4" aria-selected="false" tabindex="-1"><small>Spam im Postfach?</small>KI-Posteingang</button>
       </div>
 
       <!-- Demo 1: Preisrechner -->
@@ -225,6 +268,20 @@
             <li><span>Di · Neubau Eningen</span><b>7:45 h</b></li>
           </ul>
           <div class="k-sum"><span>Diese Woche</span><b id="k-total">16:00 h</b></div>
+        </div>
+      </div>
+
+      <div class="d-panel" role="tabpanel" id="dp-4" aria-labelledby="dt-4" hidden>
+        <div class="d-copy">
+          <h3>Spam im Postfach? Ihr Posteingang sortiert sich selbst.</h3>
+          <p>Sie verbinden einfach Ihr bestehendes E-Mail-Konto, egal ob Outlook, Gmail, GMX oder IONOS. Die KI ordnet jede neue Mail ein: Dringendes nach oben, Anfragen markiert, Werbung und Spam beiseite.</p>
+          <ul class="d-wins"><li>Läuft mit Ihrem bestehenden Postfach</li><li>Dringende Anfragen landen ganz oben</li><li>Spam und Werbung sehen Sie gar nicht mehr</li><li>Datenschutzkonform, mit Anbieter in der EU</li></ul>
+        </div>
+        <div class="d-app" id="inbox">
+          <div class="app-head"><b>Posteingang <span>Beispiel</span></b><small>verbunden · info@ihr-betrieb.de</small></div>
+          <div class="i-zahlen"><span><b id="i-neu">9</b> neu</span><span class="i-spam"><b id="i-spam">0</b> Spam aussortiert</span></div>
+          <ul class="i-liste" id="i-liste"><li class="m" data-art="spam"><span class="m-von">SEO-Agentur Top10</span><span class="m-betreff">Platz 1 bei Google garantiert!!!</span><span class="m-zeit">08:02</span><span class="m-tag"></span></li><li class="m" data-art="dringend"><span class="m-von">Müller Maschinenbau GmbH</span><span class="m-betreff">Störung an Anlage 3 – bitte dringend Rückruf</span><span class="m-zeit">08:14</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Gewinnservice</span><span class="m-betreff">Glückwunsch, Sie haben ein iPhone gewonnen</span><span class="m-zeit">08:31</span><span class="m-tag"></span></li><li class="m" data-art="anfrage"><span class="m-von">Familie Krämer</span><span class="m-betreff">Angebot für neue Unterverteilung im Keller?</span><span class="m-zeit">09:05</span><span class="m-tag"></span></li><li class="m" data-art="rechnung"><span class="m-von">Elektro-Großhandel Süd</span><span class="m-betreff">Rechnung 2026-1184</span><span class="m-zeit">09:40</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Branchenbuch Online</span><span class="m-betreff">Ihr Eintrag läuft ab – jetzt verlängern</span><span class="m-zeit">10:12</span><span class="m-tag"></span></li><li class="m" data-art="bewerbung"><span class="m-von">Lukas Weber</span><span class="m-betreff">Bewerbung als Elektroniker</span><span class="m-zeit">10:48</span><span class="m-tag"></span></li><li class="m" data-art="anfrage"><span class="m-von">Schreinerei Eichental</span><span class="m-betreff">Neuer Maschinenanschluss in der Werkstatt</span><span class="m-zeit">11:20</span><span class="m-tag"></span></li><li class="m" data-art="spam"><span class="m-von">Krypto Invest</span><span class="m-betreff">Ihr Gewinn wartet: 4.800 € in 7 Tagen</span><span class="m-zeit">11:55</span><span class="m-tag"></span></li></ul>
+          <button type="button" class="btn btn-small app-btn" id="i-btn">Mit KI sortieren</button>
         </div>
       </div>
     </div>
@@ -350,19 +407,6 @@
     </div>
   </section>
 
-  <!-- 7 ÜBER MICH -->
-  <section class="about" id="ueber">
-    <div class="wrap about-grid">
-      <img src="img/joschua-600.jpg" srcset="img/joschua-600.jpg 600w, img/joschua.jpg 1248w" sizes="240px" alt="Joschua Rauscher" width="600" height="600" class="about-photo">
-      <div>
-        <p class="eyebrow">Über mich</p>
-        <h2 class="big">Joschua Rauscher.<br>Aus Reutlingen.</h2>
-        <p class="lede">Keine Agentur mit Ticketsystem. Eine Person, die Sie anrufen können und die auch mal vorbeikommt.</p>
-        <div class="about-links"><a class="q-link" href="ueber-mich.html">Mehr über mich <span>→</span></a><a class="text-link" href="tel:+491601572410">0160 1572410</a></div>
-      </div>
-    </div>
-  </section>
-
   <!-- 8 KONTAKT -->
   <section class="contact" id="kontakt">
     <canvas id="sparks" aria-hidden="true"></canvas>
@@ -409,6 +453,6 @@
   </div>
 </footer>
 
-<script src="main.js" defer></script>
+<script src="main.js?v=20261104" defer></script>
 </body>
 </html>

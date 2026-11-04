@@ -180,6 +180,55 @@
   });
   $$("[data-demo]").forEach(function (a) { a.addEventListener("click", function () { openDemo(+a.dataset.demo); }); });
 
+  // Beispiel-Websites umschalten
+  (function () {
+    var g = $(".site-galerie"); if (!g) return;
+    var NAMEN = { schreinerei: "Schreinerei", zimmerei: "Zimmerei & Holzbau", maler: "Malerbetrieb" };
+    $$(".sg-tabs button", g).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var s = btn.dataset.site;
+        $$(".sg-tabs button", g).forEach(function (x) { x.setAttribute("aria-selected", x === btn); });
+        g.classList.add("wechselt");
+        setTimeout(function () {
+          $("#sg-desktop").src = "img/beispiele/beispiel-" + s + "-desktop.jpg";
+          $("#sg-handy").src = "img/beispiele/beispiel-" + s + "-handy.jpg";
+          $("#sg-desktop").alt = "Beispiel-Website: " + NAMEN[s];
+          $("#sg-url").textContent = "Beispiel-Website · " + NAMEN[s];
+          g.classList.remove("wechselt");
+        }, 220);
+      });
+    });
+    ["zimmerei", "maler"].forEach(function (s) { new Image().src = "img/beispiele/beispiel-" + s + "-desktop.jpg"; });
+  })();
+
+  // Demo 5: KI-Posteingang (erfundene Mails, sortiert nur im Browser)
+  (function () {
+    var box = $("#inbox"); if (!box) return;
+    var liste = $("#i-liste"), btn = $("#i-btn"), start = $$("#i-liste .m");
+    var TAG = { dringend: "Dringend", anfrage: "Anfrage", bewerbung: "Bewerbung", rechnung: "Rechnung" };
+    var RANG = { dringend: 0, anfrage: 1, bewerbung: 2, rechnung: 3, spam: 9 };
+    start.forEach(function (m) { $(".m-tag", m).textContent = TAG[m.dataset.art] || ""; });
+    var sortiert = false;
+    btn.addEventListener("click", function () {
+      if (sortiert) {
+        box.classList.remove("sortiert"); $(".i-spam").classList.remove("an");
+        start.forEach(function (m) { m.classList.remove("weg"); liste.appendChild(m); });
+        $("#i-spam").textContent = "0"; $("#i-neu").textContent = start.length;
+        btn.textContent = "Mit KI sortieren"; sortiert = false; return;
+      }
+      btn.disabled = true; btn.textContent = "KI sortiert …";
+      var spam = start.filter(function (m) { return m.dataset.art === "spam"; });
+      spam.forEach(function (m, i) { setTimeout(function () { m.classList.add("weg"); $("#i-spam").textContent = i + 1; $(".i-spam").classList.add("an"); }, 250 + i * 220); });
+      setTimeout(function () {
+        start.slice().sort(function (a, b) { return RANG[a.dataset.art] - RANG[b.dataset.art]; })
+          .forEach(function (m) { liste.appendChild(m); });
+        box.classList.add("sortiert");
+        $("#i-neu").textContent = start.length - spam.length;
+        btn.disabled = false; btn.textContent = "Zurücksetzen"; sortiert = true;
+      }, 250 + spam.length * 220 + 350);
+    });
+  })();
+
   var eur = function (v) { return (Math.round(v / 10) * 10).toLocaleString("de-DE") + " €"; };
 
   // Demo 1: Preisrechner (erfundene Preise)
