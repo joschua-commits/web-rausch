@@ -170,6 +170,8 @@
       $("#" + t.getAttribute("aria-controls")).hidden = !on;
     });
     if (focus) tabs[i].focus();
+    var leiste = tabs[i].parentNode;   // auf dem Handy den gewählten Reiter in die Mitte schieben
+    if (leiste.scrollWidth > leiste.clientWidth) leiste.scrollTo({ left: tabs[i].offsetLeft - (leiste.clientWidth - tabs[i].offsetWidth) / 2, behavior: "smooth" });
   }
   tabs.forEach(function (t, k) {
     t.addEventListener("click", function () { openDemo(k); });
