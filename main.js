@@ -214,9 +214,9 @@
         box.classList.remove("sortiert"); $(".i-spam").classList.remove("an");
         start.forEach(function (m) { m.classList.remove("weg"); liste.appendChild(m); });
         $("#i-spam").textContent = "0"; $("#i-neu").textContent = start.length;
-        btn.textContent = "Mit KI sortieren"; sortiert = false; return;
+        btn.textContent = "Automatisch sortieren"; sortiert = false; return;
       }
-      btn.disabled = true; btn.textContent = "KI sortiert …";
+      btn.disabled = true; btn.textContent = "Wird sortiert …";
       var spam = start.filter(function (m) { return m.dataset.art === "spam"; });
       spam.forEach(function (m, i) { setTimeout(function () { m.classList.add("weg"); $("#i-spam").textContent = i + 1; $(".i-spam").classList.add("an"); }, 250 + i * 220); });
       setTimeout(function () {
