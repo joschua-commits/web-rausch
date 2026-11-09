@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /fuer/
+
+Sitemap: https://web-rausch.com/sitemap.xml
